@@ -9,7 +9,7 @@ void usage() {
 void print_mac(const u_char* packet){
     //first six: dest-mac
     //next six: source-mac
-    printf("%x:%x:%x:%x:%x:%x\n",packet[0],packet[1],packet[2],packet[3],packet[4],packet[5]);
+    printf("%02x:%02x:%02x:%02x:%02x:%02x\n",packet[0],packet[1],packet[2],packet[3],packet[4],packet[5]);
 }
 
 int ether_next(const u_char* packet){
@@ -23,7 +23,7 @@ int ether_next(const u_char* packet){
 }
 
 void print_IP(const u_char* packet){
-    printf("%x.%x.%x.%x\n",packet[0],packet[1],packet[2],packet[3]);
+    printf("%d.%d.%d.%d\n",packet[0],packet[1],packet[2],packet[3]);
 }
 
 int IP_next(const u_char* packet){//input should be 14+9
@@ -35,12 +35,7 @@ int IP_next(const u_char* packet){//input should be 14+9
 
 
 void print_TCP(const u_char* packet){
-    printf("%x %x\n",packet[0],packet[1]);
-}
-
-int Size_of_TCP_header(const u_char* packet){
-    //tcp_start+12: data offset
-    return packet[0];
+    printf(" %d\n",packet[0]<<8|packet[1]);
 }
 
 int payload_len(const u_char* packet){
